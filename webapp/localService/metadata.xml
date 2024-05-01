@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZOS_ACADEMIA_PROYECTOS_SRV" xml:lang="es" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="USER" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Username" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="USERNAME" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="EMAIL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pass" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="PASSWORD" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TO_TAREASet" Relationship="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_USER" FromRole="FromRole_ASSOC_TAREA_USER" ToRole="ToRole_ASSOC_TAREA_USER"/>
+            </EntityType>
+            <EntityType Name="PROYECTO" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NombreProyecto" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="NOMBRE_PROYECTO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TO_TAREASet" Relationship="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_PROYECTO" FromRole="FromRole_ASSOC_TAREA_PROYECTO" ToRole="ToRole_ASSOC_TAREA_PROYECTO"/>
+            </EntityType>
+            <EntityType Name="TAREA" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                    <PropertyRef Name="UserId"/>
+                    <PropertyRef Name="Estado"/>
+                    <PropertyRef Name="ProyectoId"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="user_id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Estado" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="estado" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ProyectoId" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="proyecto_id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Descripcion" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="descripcion" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FechaCreacion" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="fecha creacion" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FechaLimite" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="fecha limite" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TO_PROYECTO" Relationship="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_PROYECTO" FromRole="ToRole_ASSOC_TAREA_PROYECTO" ToRole="FromRole_ASSOC_TAREA_PROYECTO"/>
+                <NavigationProperty Name="TO_ESTADO" Relationship="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_ESTADO" FromRole="ToRole_ASSOC_TAREA_ESTADO" ToRole="FromRole_ASSOC_TAREA_ESTADO"/>
+                <NavigationProperty Name="TO_USER" Relationship="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_USER" FromRole="ToRole_ASSOC_TAREA_USER" ToRole="FromRole_ASSOC_TAREA_USER"/>
+            </EntityType>
+            <EntityType Name="ESTADO" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Id"/>
+                </Key>
+                <Property Name="Id" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EstadoDescripcion" Type="Edm.String" Nullable="false" MaxLength="200" sap:unicode="false" sap:label="DESCRIPCION" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TO_TAREASet" Relationship="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_ESTADO" FromRole="FromRole_ASSOC_TAREA_ESTADO" ToRole="ToRole_ASSOC_TAREA_ESTADO"/>
+            </EntityType>
+            <Association Name="ASSOC_TAREA_USER" sap:content-version="1">
+                <End Type="ZOS_ACADEMIA_PROYECTOS_SRV.USER" Multiplicity="1" Role="FromRole_ASSOC_TAREA_USER"/>
+                <End Type="ZOS_ACADEMIA_PROYECTOS_SRV.TAREA" Multiplicity="*" Role="ToRole_ASSOC_TAREA_USER"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ASSOC_TAREA_USER">
+                        <PropertyRef Name="Id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ASSOC_TAREA_USER">
+                        <PropertyRef Name="UserId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ASSOC_TAREA_ESTADO" sap:content-version="1">
+                <End Type="ZOS_ACADEMIA_PROYECTOS_SRV.ESTADO" Multiplicity="1" Role="FromRole_ASSOC_TAREA_ESTADO"/>
+                <End Type="ZOS_ACADEMIA_PROYECTOS_SRV.TAREA" Multiplicity="*" Role="ToRole_ASSOC_TAREA_ESTADO"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ASSOC_TAREA_ESTADO">
+                        <PropertyRef Name="Id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ASSOC_TAREA_ESTADO">
+                        <PropertyRef Name="Estado"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ASSOC_TAREA_PROYECTO" sap:content-version="1">
+                <End Type="ZOS_ACADEMIA_PROYECTOS_SRV.PROYECTO" Multiplicity="1" Role="FromRole_ASSOC_TAREA_PROYECTO"/>
+                <End Type="ZOS_ACADEMIA_PROYECTOS_SRV.TAREA" Multiplicity="*" Role="ToRole_ASSOC_TAREA_PROYECTO"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ASSOC_TAREA_PROYECTO">
+                        <PropertyRef Name="Id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ASSOC_TAREA_PROYECTO">
+                        <PropertyRef Name="ProyectoId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZOS_ACADEMIA_PROYECTOS_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="USERSet" EntityType="ZOS_ACADEMIA_PROYECTOS_SRV.USER" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PROYECTOSet" EntityType="ZOS_ACADEMIA_PROYECTOS_SRV.PROYECTO" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TAREASet" EntityType="ZOS_ACADEMIA_PROYECTOS_SRV.TAREA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ESTADOSet" EntityType="ZOS_ACADEMIA_PROYECTOS_SRV.ESTADO" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="ASSOC_TAREA_ESTADOSet" Association="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_ESTADO" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ESTADOSet" Role="FromRole_ASSOC_TAREA_ESTADO"/>
+                    <End EntitySet="TAREASet" Role="ToRole_ASSOC_TAREA_ESTADO"/>
+                </AssociationSet>
+                <AssociationSet Name="ASSOC_TAREA_PROYECTOSet" Association="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_PROYECTO" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="PROYECTOSet" Role="FromRole_ASSOC_TAREA_PROYECTO"/>
+                    <End EntitySet="TAREASet" Role="ToRole_ASSOC_TAREA_PROYECTO"/>
+                </AssociationSet>
+                <AssociationSet Name="ASSOC_TAREA_USERSet" Association="ZOS_ACADEMIA_PROYECTOS_SRV.ASSOC_TAREA_USER" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="USERSet" Role="FromRole_ASSOC_TAREA_USER"/>
+                    <End EntitySet="TAREASet" Role="ToRole_ASSOC_TAREA_USER"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://stks4hpil.eastus2.cloudapp.azure.com:8002/sap/opu/odata/sap/ZOS_ACADEMIA_PROYECTOS_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://stks4hpil.eastus2.cloudapp.azure.com:8002/sap/opu/odata/sap/ZOS_ACADEMIA_PROYECTOS_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
