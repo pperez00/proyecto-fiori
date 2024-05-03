@@ -1,11 +1,53 @@
 <mvc:View controllerName="com.sofftek.psp.proyectos.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:c="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:fb="sap.ui.comp.filterbar"
+    >
+    <Page id="Main" showFooter="true" showHeader="false" floatingFooter="true" title="Proyectos">
         <content>
-            <Button id="boton" text="fdsaf">
-
-            </Button>
+            <Button id="fds" text="fsdaf"></Button>
+            <Table id="tablita" mode="SingleSelectMaster" items="{/USERSet}" selectionChange="onSelectionItem">
+                <headerToolbar>
+                    <Toolbar id="toolbarid">
+                        <ToolbarSpacer id="tbspacer"/>
+                        <Button id="toolbarButton" icon="sap-icon://excel-attachment" press="alert('no implementado')"/>
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="col1">
+                        <Text id="text1" text="Id" />
+                    </Column>
+                    <Column id="col2">
+                        <Text id="text2" text="Nombre" />
+                    </Column>
+                    <Column id="col3">
+                        <Text id="text3" text="Puntuación" />
+                    </Column>
+                    <Column id="col4">
+                        <Text id="text4" text="Acciones" />
+                    </Column>
+                </columns>
+                <ColumnListItem id="collistitem">
+                    <cells>
+                        <Text id="_IDGenText4" text="{Id}"/>
+                        <Text id="_IDGenText5" text="{Nombre}"/>
+                        <Text id="_IDGenText6" text="{Puntuacion}"/>
+                        <HBox id="_IDGenText7">
+                            <Button id="btnDelete" press="onDeleteEquipo" text="Borrar"/>
+                        </HBox>
+                    </cells>
+                </ColumnListItem>
+                
+            </Table>
         </content>
+        <footer>
+            <OverflowToolbar id="ovftoolbar">
+                <ToolbarSpacer id="ts"/>
+                <Button id="btn1" icon="sap-icon://add" tooltip="Crear nuevo equipo" press="onCreateEquipo"/>
+            </OverflowToolbar>
+        </footer>
     </Page>
 </mvc:View>

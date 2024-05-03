@@ -95,9 +95,16 @@
             "routes": [
                 {
                     "name": "RouteMain",
-                    "pattern": ":?query:",
+                    "pattern": "",
                     "target": [
                         "TargetMain"
+                    ]
+                },
+                {
+                    "name": "User",
+                    "pattern": "User/{id}",
+                    "target": [
+                        "TargetUser"
                     ]
                 }
             ],
@@ -108,6 +115,13 @@
                     "clearControlAggregation": false,
                     "viewId": "Main",
                     "viewName": "Main"
+                },
+                "TargetUser": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Id",
+                    "viewName": "User"
                 }
             }
         },
@@ -117,5 +131,9 @@
             "async": true,
             "id": "App"
         }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "comsofftekpspproyectos"
     }
 }
